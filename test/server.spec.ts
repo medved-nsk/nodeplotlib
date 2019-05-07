@@ -1,4 +1,4 @@
-import opn from 'opn';
+import open from 'open';
 import request from 'request';
 import { Server } from '../src/server';
 
@@ -9,7 +9,7 @@ const validData = {
   plots: [{data: [{ x: [1], y: [2]}]}]
 };
 
-jest.mock('opn');
+jest.mock('open');
 jest.mock('fs', () => ({readFile: (path: any, options: any, callback: (err: any, data: any) => void) => {
   callback('Error', null);
 }}));
@@ -26,14 +26,14 @@ describe('Server', () => {
     expect(server).toBeTruthy();
   });
 
-  it('should call opn once when spawning a plot', () => {
+  it('should call open once when spawning a plot', () => {
     server.spawn({0: {
       opened: false,
       pending: false,
       plots: []
     }});
 
-    expect(opn).toHaveBeenCalledTimes(1);
+    expect(open).toHaveBeenCalledTimes(1);
   });
 
   it('should serve the data', (done) => {

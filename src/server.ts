@@ -1,7 +1,7 @@
 import { readFile } from 'fs';
 import { createServer, IncomingMessage, Server as HttpServer, ServerResponse } from 'http';
 import { Socket } from 'net';
-import opn from 'opn';
+import open from 'open';
 import { join } from 'path';
 import { IPlotsContainer } from './models';
 
@@ -58,7 +58,7 @@ export class Server {
   }
 
   /**
-   * Opens the browser window using the opn-NPM module and
+   * Opens the browser window using the open-NPM module and
    * marks the container flag as pending. This means the website
    * does not have got its data yet.
    */
@@ -66,7 +66,7 @@ export class Server {
     for (const plotEntry of Object.entries(this.plotsContainer)) {
       if (!plotEntry[1].opened && !plotEntry[1].pending) {
         plotEntry[1].pending = true;
-        opn(`http://localhost:${this.port}/plots/${plotEntry[0]}/index.html`);
+        open(`http://localhost:${this.port}/plots/${plotEntry[0]}/index.html`);
       }
     }
   }
